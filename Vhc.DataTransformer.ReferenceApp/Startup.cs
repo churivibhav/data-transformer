@@ -7,6 +7,7 @@ using Vhc.CoreUi.Abstractions;
 using Vhc.DataTransformer.Core.Abstractions;
 using Vhc.DataTransformer.Core.Services;
 using Vhc.DataTransformer.Core.Utils;
+using Vhc.DataTransformer.ReferenceImpl;
 using Vhc.DataTransformer.Services;
 
 namespace Vhc.DataTransformer.ReferenceApp
@@ -20,9 +21,13 @@ namespace Vhc.DataTransformer.ReferenceApp
 
         public void ConfigureServices(IServiceCollection services, IConfiguration config)
         {
-            services.AddLogging(builder => builder.AddConfiguration(config).AddConsole());
+            // services.AddLogging(builder => builder.AddConfiguration(config).AddConsole());
+            ILoggerFactory loggerFactory = new LoggerFactory()
+                .AddConsole();
+            services.AddSingleton(loggerFactory);
+            services.AddLogging();
 
-            services.AddTransient<IJobLoader, JobLoader>();
+            services.AddReferenceServices(config);
         }
 
         public void Start(IAppHost app) => StartAsync(app).GetAwaiter().GetResult();
@@ -30,7 +35,7 @@ namespace Vhc.DataTransformer.ReferenceApp
         public async Task StartAsync(IAppHost app)
         {
             var criteria = app.Services.GetService<ICriteria>();
-            var logger = app.Services.GetService<ILogger>();
+            var logger = app.Services.GetService<ILogger<Startup>>();
             logger.LogInformation($"{ Constants.AppName} - v{ Constants.AppVersion }");
             logger.LogInformation($"Event : {criteria}");
 

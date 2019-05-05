@@ -8,8 +8,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.DataTransformer.Core", "Vhc.DataTransformer.Core\Vhc.DataTransformer.Core.csproj", "{71403BEF-4212-49FA-8CDA-5C0754B3A478}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.DataTransformer.ReferenceImpl", "Vhc.DataTransformer.ReferenceImpl\Vhc.DataTransformer.ReferenceImpl.csproj", "{74DD8B82-21E8-4B83-B5D8-674ED099EBC7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205} = {EA8B0EF8-11E5-455B-82D7-D6F4756B5205}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.DataTransformer.ReferenceApp", "Vhc.DataTransformer.ReferenceApp\Vhc.DataTransformer.ReferenceApp.csproj", "{476E43F8-9A84-47E0-A62B-08F03E79EB36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.DataTransformer.Jobs", "Vhc.DataTransformer.Jobs\Vhc.DataTransformer.Jobs.csproj", "{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +38,10 @@ Global
 		{476E43F8-9A84-47E0-A62B-08F03E79EB36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{476E43F8-9A84-47E0-A62B-08F03E79EB36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{476E43F8-9A84-47E0-A62B-08F03E79EB36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,7 +12,7 @@ namespace Vhc.DataTransformer.ReferenceApp
         {
             var criteria = new Criteria
             {
-                RunJobs = new[] { "ABC" }
+                RunJobs = new[] { "DemoJob" }
             };
             new AppHostBuilder()
                 .ConfigureServices(services =>

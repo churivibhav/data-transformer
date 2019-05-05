@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Vhc.DataTransformer.Services
 {
@@ -12,7 +14,7 @@ namespace Vhc.DataTransformer.Services
         }
         public StreamWriterEventArgs(T value)
         {
-            Value = value;
+            this.Value = value;
         }
     }
 
@@ -41,4 +43,5 @@ namespace Vhc.DataTransformer.Services
         }
 
     }
+
 }

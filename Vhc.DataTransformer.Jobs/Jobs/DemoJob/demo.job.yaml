@@ -1,0 +1,19 @@
+﻿Name: DemoJob
+Description: This description is useless as it's not printed anywhere!
+Parent: true
+Active: true
+Priority: 5
+ConnectionName: DUMMY
+Units: 
+  - Name: Set Variable Value
+    Path: ./demo-step1.py
+    Type: Python
+    Properties:
+      UnitProp: abc
+Variables:
+  - Name: tableName
+    Value: null
+    Active: true
+Properties:
+  PropA: PropAvalue
+  PropB: PROPBValue

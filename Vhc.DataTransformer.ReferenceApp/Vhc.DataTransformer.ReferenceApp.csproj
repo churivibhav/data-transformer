@@ -13,4 +13,10 @@
     <ProjectReference Include="..\Vhc.DataTransformer.ReferenceImpl\Vhc.DataTransformer.ReferenceImpl.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
