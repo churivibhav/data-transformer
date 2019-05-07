@@ -20,7 +20,7 @@ namespace Vhc.DataTransformer.Services
         private readonly ILogger<IJobLoader> logger;
         private readonly ITextFileProvider textFileProvider;
 
-        private bool useS3;
+        private bool UseCloudFilesystem;
         private string bucketName;
         private string filePattern;
         private IDeserializer deserializer;
@@ -36,9 +36,24 @@ namespace Vhc.DataTransformer.Services
             Initialize();
         }
 
+        public IJobUnit CreateUnitByType(string unitType)
+        {
+            switch (Enum.Parse<UnitType>(unitType))
+            {
+                case UnitType.Python:
+                    return new PythonJobUnit();
+                case UnitType.Sql:
+                    return new SqlJobUnit();
+                case UnitType.Job:
+                    return new Job();
+                default:
+                    return null;
+            }
+        }
+
         private void Initialize()
         {
-            useS3 = Convert.ToBoolean(configuration["Transformations:UseS3"]);
+            UseCloudFilesystem = Convert.ToBoolean(configuration["Transformations:UseCloudFilesystem"]);
             bucketName = configuration["Transformations:BucketName"];
             filePattern = configuration["Transformations:FilePattern"];
             deserializer = new DeserializerBuilder()
@@ -47,7 +62,7 @@ namespace Vhc.DataTransformer.Services
         }
 
         public async Task<string> GetContentByPathAsync(string path)
-            => useS3
+            => UseCloudFilesystem
                 ? await textFileProvider.GetContentAsync(bucketName, path)
                 : await File.ReadAllTextAsync(path);
 
@@ -56,11 +71,11 @@ namespace Vhc.DataTransformer.Services
             if (criteria is null) throw new ArgumentNullException(nameof(criteria));
 
             ICollection<JobDataObject> jobDataObjects = await GetAllJobsAsync(criteria.RunFolder);
-            return jobDataObjects
+            return ToJobCollection( jobDataObjects
                 .Where(job => criteria.RunAll || criteria.RunJobs.Contains(job.Name)) // Take jobs specified by criteria, otherwise take all
                 .Where(job => job.Active) // Take only active jobs
                 .Select(job => SetJobVariables(job, criteria))
-                .ToJobCollection(this);
+                , this);
         }
 
         private JobDataObject SetJobVariables(JobDataObject job, ICriteria criteria)
@@ -142,42 +157,21 @@ namespace Vhc.DataTransformer.Services
         {
             JobDataObject jobDataObject = await GetJobAsync(path);
             jobDataObject.Path = path;
-            return jobDataObject.ToJob(this);
+            return ToJob(jobDataObject, this);
         }
 
         public IJob LoadJobByContent(string content)
         {
-            return deserializer.Deserialize<JobDataObject>(content).ToJob(this);
+            return ToJob(deserializer.Deserialize<JobDataObject>(content), this);
         }
-    }
-
-    static class JobLoadingExtensions
-    {
-        private const string Separator = "/";
-
-        private static string GetAbsolutePath(string unitPath, string jobKey)
-        {
-            string currentFolder = $".{Separator}";
-            if (unitPath.StartsWith(currentFolder))
-            {
-                return GetFolderFromJobKey(jobKey) + unitPath.Replace(currentFolder, string.Empty);
-            }
-            return unitPath;
-        }
-
-        private static string GetFolderFromJobKey(string key)
-        {
-            var parts = key.Split(Separator);
-            return $"{string.Join(Separator, (from part in parts where part != parts.Last() select part).ToArray())}{Separator}";
-        }
-
-        public static ICollection<IJob> ToJobCollection(this IEnumerable<JobDataObject> jobDataObjects, IJobLoader loader)
+    
+        public ICollection<IJob> ToJobCollection(IEnumerable<JobDataObject> jobDataObjects, IJobLoader loader)
             => jobDataObjects
                 .Where(j => j.Active && j.Parent)
-                .Select(j => j.ToJob(loader))
+                .Select(j => ToJob(j, loader))
                 .ToList();
 
-        public static IJob ToJob(this JobDataObject j, IJobLoader loader) => new Job
+        private IJob ToJob(JobDataObject j, IJobLoader loader) => new Job
         {
             Name = j.Name,
             Active = j.Active,
@@ -186,12 +180,12 @@ namespace Vhc.DataTransformer.Services
             Priority = j.Priority,
             ConnectionName = j.ConnectionName,
             Warehouse = j.Warehouse,
-            Units = j.Units.ToUnitCollection(loader, j.Path),
-            Variables = j.Variables.ToVariableCollection(),
+            Units = ToUnitCollection(j.Units, loader, j.Path),
+            Variables = ToVariableCollection(j.Variables),
             Properties = j.Properties
         } as IJob;
 
-        static IEnumerable<IVariable> ToVariableCollection(this IEnumerable<VariableDataObject> variableDataObjects)
+        private IEnumerable<IVariable> ToVariableCollection(IEnumerable<VariableDataObject> variableDataObjects)
             => variableDataObjects is null
                 ? new List<Variable>()
                 : variableDataObjects.Where(v => v.Active)
@@ -203,33 +197,20 @@ namespace Vhc.DataTransformer.Services
                     })
                     .ToList();
 
-        static IEnumerable<IJobUnit> ToUnitCollection(this IEnumerable<JobUnitDataObject> jobUnitDataObjects, IJobLoader loader, string jobKey)
+        private IEnumerable<IJobUnit> ToUnitCollection(IEnumerable<JobUnitDataObject> jobUnitDataObjects, IJobLoader loader, string jobKey)
             => jobUnitDataObjects is null
                 ? new List<IJobUnit>()
                 : jobUnitDataObjects.Select(u =>
                 {
-                    IJobUnit unit = CreateUnitByType(u.Type);
+                    IJobUnit unit = loader.CreateUnitByType(u.Type.ToString());
                     unit.Name = u.Name;
                     unit.Properties = u.Properties;
-                    unit.Content = loader.GetContentByPathAsync(GetAbsolutePath(u.Path, jobKey)).GetAwaiter().GetResult();
+                    unit.Content = loader.GetContentByPathAsync(textFileProvider.GetAbsolutePath(u.Path, jobKey)).GetAwaiter().GetResult();
                     return unit;
                 })
                 .ToList();
 
-        private static IJobUnit CreateUnitByType(UnitType unitType)
-        {
-            switch (unitType)
-            {
-                case UnitType.Python:
-                    return new PythonJobUnit();
-                case UnitType.Sql:
-                    return new SqlJobUnit();
-                case UnitType.Job:
-                    return new Job();
-                default:
-                    return null;
-            }
-        }
+        
     }
 
 }

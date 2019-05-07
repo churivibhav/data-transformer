@@ -10,34 +10,41 @@ namespace Vhc.DataTransformer.ReferenceImpl
 {
     internal class PlainTextFileProvider : ITextFileProvider
     {
-        private readonly string jobLocation;
         private readonly ILogger<PlainTextFileProvider> logger;
 
-        public PlainTextFileProvider(string jobLocation, ILogger<PlainTextFileProvider> logger)
+        public PlainTextFileProvider(ILogger<PlainTextFileProvider> logger)
         {
-            this.jobLocation = jobLocation;
             this.logger = logger;
         }
 
-        public async Task<string> GetContentAsync(string path, string key)
+        public static string Separator = $"{Path.DirectorySeparatorChar}";
+
+        public string GetAbsolutePath(string unitPath, string jobKey)
         {
-            string text = null;
-            try
+            string currentFolder = $"./";
+            if (unitPath.StartsWith(currentFolder))
             {
-                text = await File.ReadAllTextAsync(jobLocation + "/" + path + "/" + key);
-            } catch (Exception ex)
-            {
-                logger.LogError(ex.Message);
-                throw ex;
+                return GetFolderFromJobKey(jobKey) + unitPath.Replace(currentFolder, string.Empty);
             }
-            return text;
+            return unitPath;
         }
+
+        private static string GetFolderFromJobKey(string key)
+        {
+            var parts = key.Split(Separator);
+            return $"{string.Join(Separator, (from part in parts where part != parts.Last() select part).ToArray())}{Separator}";
+        }
+
+        public async Task<string> GetContentAsync(string path, string key)
+            => await File.ReadAllTextAsync(key);
+
+
 
         public async Task<IEnumerable<string>> ListFileKeysAsync(string path, string filePatternRegex = null)
         {
-            DirectoryInfo d = new DirectoryInfo(jobLocation + "/" + path);//Assuming Test is your Folder
-            FileInfo[] files = d.GetFiles(filePatternRegex ?? "*");
-            return files.Select(f => f.Name).ToList();
+            DirectoryInfo d = new DirectoryInfo(path);
+            FileInfo[] files = d.GetFiles(filePatternRegex ?? "*", SearchOption.AllDirectories);
+            return files.Select(f => f.FullName).ToList();
         }
     }
 }

@@ -10,5 +10,7 @@ namespace Vhc.DataTransformer.Core.Services
         Task<IJob> LoadJobAsync(string path);
         IJob LoadJobByContent(string content);
         Task<string> GetContentByPathAsync(string path);
+
+        IJobUnit CreateUnitByType(string unitType);
     }
 }

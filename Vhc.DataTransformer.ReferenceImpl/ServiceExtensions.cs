@@ -17,8 +17,7 @@ namespace Vhc.DataTransformer.ReferenceImpl
         {
             services.AddTransient<INotificationService, ConsoleNotificationService>();
             services.AddSingleton<IExecutionContext, ContinuousExecutionContext>();
-            services.AddTransient<ITextFileProvider, PlainTextFileProvider>(provider => 
-                new PlainTextFileProvider(config["JobDefinitionLocation"], provider.GetService<ILogger<PlainTextFileProvider>>()));
+            services.AddTransient<ITextFileProvider, PlainTextFileProvider>();
             services.AddTransient<IJobLoader, JobLoader>();
             services.AddSingleton<IConnectionProvider, SqliteConnectionProvider>();
             services.AddJobRunner(options => options.AddSqliteDatabase(config));
@@ -55,7 +54,7 @@ namespace Vhc.DataTransformer.ReferenceImpl
                 });
             }
             options.DatabaseConnections = connectionSet;
-            options.ConcurrentNumberOfJobs = Convert.ToInt32(config["ConcurrentNumberOfJobs"]);
+            options.ConcurrentNumberOfJobs = Convert.ToInt32(config["Transformations:ConcurrentNumberOfJobs"]);
         }
     }
 }

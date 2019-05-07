@@ -34,7 +34,7 @@ namespace Vhc.DataTransformer.ReferenceImpl
             return engine;
         }
 
-        public IDbConnection NewConnection => throw new System.NotImplementedException();
+        public IDbConnection NewConnection => new System.Data.SQLite.SQLiteConnection();
 
         public ScriptEngine ScriptEngine { get; }
     }

@@ -143,7 +143,7 @@ namespace Vhc.DataTransformer.Core.Services
 
         private void SetupAndOpenDatabaseConnection(IJob job, IDbConnection dbConnection)
         {
-            var connectionString = options.DatabaseConnections.Where(c => c.Name == job.ConnectionName).Select(c => c.ConnectionString).First();
+            dbConnection.ConnectionString = options.DatabaseConnections.Where(c => c.Name == job.ConnectionName).Select(c => c.ConnectionString).First();
             dbConnection.Open();
         }
     }
