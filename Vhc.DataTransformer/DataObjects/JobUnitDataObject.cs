@@ -7,6 +7,6 @@ namespace Vhc.DataTransformer.DataObjects
         public string Name { get; set; }
         public string Path { get; set; }
         public IDictionary<string, string> Properties { get; set; }
-        public UnitType Type { get; set; }
+        public string Type { get; set; }
     }
 }

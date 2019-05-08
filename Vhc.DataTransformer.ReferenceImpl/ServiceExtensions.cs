@@ -12,17 +12,33 @@ namespace Vhc.DataTransformer.ReferenceImpl
 {
     public static class ServiceExtensions
     {
+        private static readonly Func<string, IJobUnit> unitFactory = (unitType) => unitType switch
+        {
+            "Python" => new PythonJobUnit(),
+            "Sql" => new SqlJobUnit(),
+            "Job" => new Job() as IJobUnit,
+            _ => throw new Exception("Invalid unit type!")
+        };
 
         public static IServiceCollection AddReferenceServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddTransient<INotificationService, ConsoleNotificationService>();
             services.AddSingleton<IExecutionContext, ContinuousExecutionContext>();
             services.AddTransient<ITextFileProvider, PlainTextFileProvider>();
-            services.AddTransient<IJobLoader, JobLoader>();
+            services.AddJobLoader(unitFactory);
             services.AddSingleton<IConnectionProvider, SqliteConnectionProvider>();
             services.AddJobRunner(options => options.AddSqliteDatabase(config));
             System.Net.ServicePointManager.DefaultConnectionLimit = 50;
             return services;
+        }
+
+        private static void AddJobLoader(this IServiceCollection services, Func<string, IJobUnit> unitFactoryFunction)
+        {
+            services.AddTransient<IJobLoader, JobLoader>(provider => new JobLoader(
+                      provider.GetService<IConfiguration>(),
+                      provider.GetService<ITextFileProvider>(),
+                      provider.GetService<ILogger<JobLoader>>(),
+                      unitFactoryFunction));
         }
 
         public static IServiceCollection AddJobRunner(this IServiceCollection services, Action<JobRunnerOptions> optionsModifier)

@@ -18,6 +18,7 @@ namespace Vhc.DataTransformer.Services
     {
         private readonly IConfiguration configuration;
         private readonly ILogger<IJobLoader> logger;
+        private readonly Func<string, IJobUnit> unitFactory;
         private readonly ITextFileProvider textFileProvider;
 
         private bool UseCloudFilesystem;
@@ -28,28 +29,18 @@ namespace Vhc.DataTransformer.Services
         public JobLoader(
             IConfiguration configuration,
             ITextFileProvider textFileProvider,
-            ILogger<IJobLoader> logger)
+            ILogger<IJobLoader> logger,
+            Func<string, IJobUnit> unitFactory)
         {
             this.configuration = configuration;
             this.textFileProvider = textFileProvider;
             this.logger = logger;
+            this.unitFactory = unitFactory;
             Initialize();
         }
 
-        public IJobUnit CreateUnitByType(string unitType)
-        {
-            switch (Enum.Parse<UnitType>(unitType))
-            {
-                case UnitType.Python:
-                    return new PythonJobUnit();
-                case UnitType.Sql:
-                    return new SqlJobUnit();
-                case UnitType.Job:
-                    return new Job();
-                default:
-                    return null;
-            }
-        }
+        public IJobUnit CreateUnitByType(string unitType) => unitFactory(unitType);
+
 
         private void Initialize()
         {
@@ -202,7 +193,7 @@ namespace Vhc.DataTransformer.Services
                 ? new List<IJobUnit>()
                 : jobUnitDataObjects.Select(u =>
                 {
-                    IJobUnit unit = loader.CreateUnitByType(u.Type.ToString());
+                    IJobUnit unit = loader.CreateUnitByType(u.Type);
                     unit.Name = u.Name;
                     unit.Properties = u.Properties;
                     unit.Content = loader.GetContentByPathAsync(textFileProvider.GetAbsolutePath(u.Path, jobKey)).GetAwaiter().GetResult();
