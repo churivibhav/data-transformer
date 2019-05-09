@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <LangVersion>8.0</LangVersion>
-    <Description>Sqlite Implentation for Vhc.Optimus data transformer</Description>
-    <Copyright>Vibhav Churi</Copyright>
+    <Description>FileSystem Job Files Provider for Optimus Data Transformer</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Copyright>Vibhav Churi</Copyright>
     <PackageProjectUrl>https://github.com/churivibhav/optimus</PackageProjectUrl>
     <RepositoryUrl>https://github.com/churivibhav/optimus</RepositoryUrl>
     <PackageTags>.NET Core</PackageTags>
@@ -14,17 +14,12 @@
     <FileVersion>1.0.1.0</FileVersion>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Product>Vhc.Optimus.Platforms.Sqlite</Product>
-    <PackageId>Vhc.Optimus.Platforms.Sqlite</PackageId>
+    <Product>Vhc.Optimus.FileProviders.FileSystem</Product>
+    <PackageId>Vhc.Optimus.FileProviders.FileSystem</PackageId>
     <Version>1.0.1</Version>
-    <Company>Vhc.Optimus.Platforms.Sqlite</Company>
-    <Authors>Vhc.Optimus.Platforms.Sqlite</Authors>
+    <Company>Vhc.Optimus.FileProviders.FileSystem</Company>
+    <Authors>Vhc.Optimus.FileProviders.FileSystem</Authors>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.110" />
-    <PackageReference Include="Vhc.CoreUi" Version="0.0.5" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Vhc.Optimus\Vhc.Optimus.csproj" />

@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.ReferenceApp", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.Jobs", "Vhc.Optimus.Jobs\Vhc.Optimus.Jobs.csproj", "{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.Optimus.FileProviders.PlainText", "Vhc.Optimus.FileProviders.PlainText\Vhc.Optimus.FileProviders.PlainText.csproj", "{B576A153-10C9-4C4E-A7D4-AB9A975BAF7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.FileProviders.FileSystem", "Vhc.Optimus.FileProviders.FileSystem\Vhc.Optimus.FileProviders.FileSystem.csproj", "{B576A153-10C9-4C4E-A7D4-AB9A975BAF7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

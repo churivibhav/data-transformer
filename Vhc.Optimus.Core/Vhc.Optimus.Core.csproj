@@ -13,12 +13,14 @@ Add this to get the Core features without any external implementation.</Descript
     <Product>Vhc.Optimus.Core</Product>
     <PackageId>Vhc.Optimus.Core</PackageId>
     <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Company>Vhc.Optimus.Core</Company>
     <Authors>Vhc.Optimus.Core</Authors>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
