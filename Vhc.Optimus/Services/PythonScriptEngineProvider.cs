@@ -1,20 +1,20 @@
-﻿using System.Data;
-using System.IO;
+﻿using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Scripting.Hosting;
 using Vhc.Optimus.Core.Services;
-using Vhc.Optimus.Services;
 
-namespace Vhc.Optimus.ReferenceImpl
+namespace Vhc.Optimus.Services
 {
-    internal class SqliteConnectionProvider : IConnectionProvider
+    public class PythonScriptEngineProvider : IScriptEngineProvider
     {
-        private readonly ILogger<SqliteConnectionProvider> logger;
+        private readonly ILogger<PythonScriptEngineProvider> logger;
 
-        public SqliteConnectionProvider(ILogger<SqliteConnectionProvider> logger)
+        public ScriptEngine ScriptEngine { get; }
+
+        public PythonScriptEngineProvider(ILogger<PythonScriptEngineProvider> logger)
         {
-            this.logger = logger;
             ScriptEngine = CreateScriptEngine();
+            this.logger = logger;
         }
 
         private ScriptEngine CreateScriptEngine()
@@ -33,9 +33,5 @@ namespace Vhc.Optimus.ReferenceImpl
             engine.Runtime.IO.SetErrorOutput(memoryStream, writer);
             return engine;
         }
-
-        public IDbConnection NewConnection => new System.Data.SQLite.SQLiteConnection();
-
-        public ScriptEngine ScriptEngine { get; }
     }
 }

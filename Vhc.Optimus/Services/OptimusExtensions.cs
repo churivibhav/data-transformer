@@ -9,6 +9,8 @@ namespace Vhc.Optimus.Services
 {
     public static class OptimusExtensions
     {
+        public static IServiceCollection AddPythonScriptEngine(this IServiceCollection services)
+            => services.AddSingleton<IScriptEngineProvider, PythonScriptEngineProvider>();
         public static IServiceCollection AddJobLoader(this IServiceCollection services, Func<string, IJobUnit> unitFactoryFunction) 
             => services.AddTransient<IJobLoader, JobLoader>(provider => new JobLoader(
                 provider.GetService<IConfiguration>(),
@@ -21,6 +23,7 @@ namespace Vhc.Optimus.Services
             {
                 var jobRunner = new JobRunner(
                     provider.GetService<IConnectionProvider>(),
+                    provider.GetService<IScriptEngineProvider>(),
                     provider.GetService<ILogger<JobRunner>>(),
                     provider.GetService<IJobLoader>(),
                     provider.GetService<INotificationService>(),

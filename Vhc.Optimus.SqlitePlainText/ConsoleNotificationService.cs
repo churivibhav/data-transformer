@@ -4,13 +4,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Vhc.Optimus.Core.Services;
 
-namespace Vhc.Optimus.ReferenceImpl
+namespace Vhc.Optimus.Platforms.Sqlite
 {
-    class ConsoleNotificationService : INotificationService
+    public class ConsoleNotificationService : INotificationService
     {
         public Task NotifyFailureAsync(string message)
         {
-            Console.WriteLine($"{this.GetType().Name} - {message}");
+            Console.WriteLine($"{GetType().Name} - {message}");
             return Task.CompletedTask;
         }
     }

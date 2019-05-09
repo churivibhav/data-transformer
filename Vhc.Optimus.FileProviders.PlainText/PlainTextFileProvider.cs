@@ -6,9 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Vhc.Optimus.Core.Services;
 
-namespace Vhc.Optimus.ReferenceImpl
+namespace Vhc.Optimus.FileProviders.PlainText
 {
-    internal class PlainTextFileProvider : ITextFileProvider
+    public class PlainTextFileProvider : ITextFileProvider
     {
         private readonly ILogger<PlainTextFileProvider> logger;
 

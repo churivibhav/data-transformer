@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vhc.Optimus.ReferenceImpl\Vhc.Optimus.ReferenceImpl.csproj" />
+    <ProjectReference Include="..\Vhc.Optimus.FileProviders.PlainText\Vhc.Optimus.FileProviders.PlainText.csproj" />
+    <ProjectReference Include="..\Vhc.Optimus.SqlitePlainText\Vhc.Optimus.Platforms.Sqlite.csproj" />
   </ItemGroup>
 
   <ItemGroup>

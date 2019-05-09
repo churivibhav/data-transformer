@@ -5,16 +5,18 @@ VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus", "Vhc.Optimus\Vhc.Optimus.csproj", "{52FC273D-A8C5-41E8-A3A9-F418D3F83B17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.Optimus.Core", "Vhc.Optimus.Core\Vhc.Optimus.Core.csproj", "{71403BEF-4212-49FA-8CDA-5C0754B3A478}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.Core", "Vhc.Optimus.Core\Vhc.Optimus.Core.csproj", "{71403BEF-4212-49FA-8CDA-5C0754B3A478}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.Optimus.ReferenceImpl", "Vhc.Optimus.ReferenceImpl\Vhc.Optimus.ReferenceImpl.csproj", "{74DD8B82-21E8-4B83-B5D8-674ED099EBC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.Platforms.Sqlite", "Vhc.Optimus.SqlitePlainText\Vhc.Optimus.Platforms.Sqlite.csproj", "{74DD8B82-21E8-4B83-B5D8-674ED099EBC7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205} = {EA8B0EF8-11E5-455B-82D7-D6F4756B5205}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.Optimus.ReferenceApp", "Vhc.Optimus.ReferenceApp\Vhc.Optimus.ReferenceApp.csproj", "{476E43F8-9A84-47E0-A62B-08F03E79EB36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.ReferenceApp", "Vhc.Optimus.ReferenceApp\Vhc.Optimus.ReferenceApp.csproj", "{476E43F8-9A84-47E0-A62B-08F03E79EB36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.Optimus.Jobs", "Vhc.Optimus.Jobs\Vhc.Optimus.Jobs.csproj", "{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.Jobs", "Vhc.Optimus.Jobs\Vhc.Optimus.Jobs.csproj", "{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vhc.Optimus.FileProviders.PlainText", "Vhc.Optimus.FileProviders.PlainText\Vhc.Optimus.FileProviders.PlainText.csproj", "{B576A153-10C9-4C4E-A7D4-AB9A975BAF7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,10 @@ Global
 		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B576A153-10C9-4C4E-A7D4-AB9A975BAF7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B576A153-10C9-4C4E-A7D4-AB9A975BAF7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B576A153-10C9-4C4E-A7D4-AB9A975BAF7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B576A153-10C9-4C4E-A7D4-AB9A975BAF7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

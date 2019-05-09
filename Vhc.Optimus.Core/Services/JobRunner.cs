@@ -18,11 +18,13 @@ namespace Vhc.Optimus.Core.Services
         private readonly INotificationService notificationService;
         private readonly IExecutionContext context;
         private readonly IConnectionProvider connectionProvider;
+        private readonly IScriptEngineProvider scriptEngineProvider;
         private readonly ILogger<JobRunner> logger;
 
-        public JobRunner(IConnectionProvider connectionProvider, ILogger<JobRunner> logger, IJobLoader jobLoader, INotificationService notificationService, IExecutionContext context)
+        public JobRunner(IConnectionProvider connectionProvider, IScriptEngineProvider scriptEngineProvider, ILogger<JobRunner> logger, IJobLoader jobLoader, INotificationService notificationService, IExecutionContext context)
         {
             this.connectionProvider = connectionProvider;
+            this.scriptEngineProvider = scriptEngineProvider;
             this.logger = logger;
             this.jobLoader = jobLoader;
             this.notificationService = notificationService;
@@ -45,7 +47,7 @@ namespace Vhc.Optimus.Core.Services
                 {
                     throw new Exception("Invalid Criteria! Aborting...");
                 }
-                var scriptEngine = connectionProvider.ScriptEngine;
+                var scriptEngine = scriptEngineProvider.ScriptEngine;
                 var activeParentJobs = await jobLoader.LoadAllParentJobsAsync(criteria);
                 var eligibleJobs = activeParentJobs.OrderBy(job => job.Priority);
                 logger.LogInformation($"The following jobs will run : {string.Join(",", eligibleJobs.Select(job => job.Name))}");

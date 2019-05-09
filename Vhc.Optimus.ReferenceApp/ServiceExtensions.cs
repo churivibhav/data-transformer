@@ -8,6 +8,8 @@ using Vhc.Optimus.Core.Models;
 using Vhc.Optimus.Core.Services;
 using Vhc.Optimus.Models;
 using Vhc.Optimus.Services;
+using Vhc.Optimus.FileProviders.PlainText;
+using Vhc.Optimus.Platforms.Sqlite;
 
 namespace Vhc.Optimus.ReferenceImpl
 {
@@ -29,6 +31,7 @@ namespace Vhc.Optimus.ReferenceImpl
             .AddTransient<ITextFileProvider, PlainTextFileProvider>()
             .AddJobLoader(unitFactory)
             .AddSingleton<IConnectionProvider, SqliteConnectionProvider>()
+            .AddPythonScriptEngine()
             .AddJobRunner(options => options.AddSqliteDatabase(config));
         }
 
