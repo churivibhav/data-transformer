@@ -2,11 +2,10 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Vhc.Optimus.Core.Abstractions;
 using Vhc.Optimus.Core.Models;
 
-namespace Vhc.Optimus.Core.Models
+namespace Vhc.Optimus.Models
 {
     public class SqlJobUnit : IJobUnit
     {

@@ -6,9 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Vhc.Optimus.Core.Abstractions;
+using Vhc.Optimus.Core.Models;
 using Vhc.Optimus.Core.Utils;
 
-namespace Vhc.Optimus.Core.Models
+namespace Vhc.Optimus.Models
 {
     public class PythonJobUnit : IJobUnit
     {

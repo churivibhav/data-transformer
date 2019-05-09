@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Vhc.Optimus.Core.Abstractions;
 using Vhc.Optimus.Core.Models;
 using Vhc.Optimus.Core.Services;
+using Vhc.Optimus.Models;
 using Vhc.Optimus.Services;
 
 namespace Vhc.Optimus.ReferenceImpl

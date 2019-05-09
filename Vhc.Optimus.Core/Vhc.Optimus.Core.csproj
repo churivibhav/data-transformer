@@ -3,6 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <LangVersion>8.0</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Optimus is a library to run data transformation jobs in a .NET Core application.
+Add this to get the Core features without any external implementation.</Description>
+    <Copyright>Vibhav Churi</Copyright>
+    <PackageProjectUrl>https://github.com/churivibhav/optimus</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/churivibhav/optimus</RepositoryUrl>
+    <PackageTags>.NET Core</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
