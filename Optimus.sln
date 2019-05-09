@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus", "Vhc.Optimus\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.Core", "Vhc.Optimus.Core\Vhc.Optimus.Core.csproj", "{71403BEF-4212-49FA-8CDA-5C0754B3A478}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.Platforms.Sqlite", "Vhc.Optimus.SqlitePlainText\Vhc.Optimus.Platforms.Sqlite.csproj", "{74DD8B82-21E8-4B83-B5D8-674ED099EBC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vhc.Optimus.Platforms.Sqlite", "Vhc.Optimus.Platforms.Sqlite\Vhc.Optimus.Platforms.Sqlite.csproj", "{74DD8B82-21E8-4B83-B5D8-674ED099EBC7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EA8B0EF8-11E5-455B-82D7-D6F4756B5205} = {EA8B0EF8-11E5-455B-82D7-D6F4756B5205}
 	EndProjectSection
